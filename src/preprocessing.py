@@ -1,26 +1,44 @@
+"""
+Text preprocessing module for AI Job Scam Detection Platform.
+"""
+
 import re
-import nltk
-from nltk.corpus import stopwords
 
-nltk.download("stopwords", quiet=True)
 
-stop_words = set(stopwords.words("english"))
+def clean_text(text: str) -> str:
+    """
+    Clean and normalize job description text.
 
-def clean_text(text):
+    Parameters
+    ----------
+    text : str
+        Raw job description.
 
-    if text is None:
+    Returns
+    -------
+    str
+        Cleaned text.
+    """
+
+    if not isinstance(text, str):
         return ""
 
+    # Convert to lowercase
     text = text.lower()
 
-    text = re.sub(r"[^a-zA-Z\s]", "", text)
+    # Remove URLs
+    text = re.sub(r"http\S+|www\S+", " ", text)
 
+    # Remove email addresses
+    text = re.sub(r"\S+@\S+", " ", text)
+
+    # Remove numbers
+    text = re.sub(r"\d+", " ", text)
+
+    # Remove punctuation
+    text = re.sub(r"[^\w\s]", " ", text)
+
+    # Remove extra spaces
     text = re.sub(r"\s+", " ", text).strip()
 
-    words = [
-        word
-        for word in text.split()
-        if word not in stop_words
-    ]
-
-    return " ".join(words)
+    return text
