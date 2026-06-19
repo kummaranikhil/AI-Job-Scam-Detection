@@ -1,0 +1,6 @@
+2026-06-19 08:33:59,184 | INFO | Prediction requested.
+2026-06-19 08:33:59,342 | INFO | Prediction: Genuine | Confidence: 66.00%
+2026-06-19 08:40:55,217 | INFO | Model loaded successfully.
+2026-06-19 08:41:23,562 | INFO | Prediction requested.
+2026-06-19 08:41:23,672 | INFO | Prediction: Genuine | Confidence: 66.00%
+2026-06-19 08:43:31,592 | INFO | Model loaded successfully.

@@ -256,12 +256,21 @@ if analyze:
 
     else:
 
-        with st.spinner("Analyzing..."):
+        with st.spinner("Analyzing Job Posting..."):
 
-            result = predict_job(job_text)
+            try:
 
-            reasons = explain_prediction(job_text)
+                result = predict_job(job_text)
 
+                reasons = explain_prediction(job_text)
+
+            except Exception as e:
+
+                st.error("❌ Something went wrong while analyzing the job posting.")
+
+                st.exception(e)
+
+                st.stop()
             prediction = result["prediction"]
 
             fake_probability = result["fake_probability"]
