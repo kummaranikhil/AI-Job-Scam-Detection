@@ -1,30 +1,25 @@
-
-🛡 AI-Powered Job Scam Detection Platform
-
-Machine Learning • NLP • Streamlit • Scikit-Learn
-
-Detect Fraudulent Job Postings Using Artificial Intelligence
-
-
-
 # 🛡️ AI-Powered Job Scam Detection Platform
 
-![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-Live-red?logo=streamlit&logoColor=white)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?logo=scikitlearn&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python\&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-Live-red?logo=streamlit\&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange?logo=scikitlearn\&logoColor=white)
 ![NLP](https://img.shields.io/badge/NLP-TF--IDF-purple)
+![Status](https://img.shields.io/badge/Status-Deployed-success)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-An AI-powered web application...
+An AI-powered web application that detects **fraudulent job postings** using **Machine Learning** and **Natural Language Processing (NLP)**. The application analyzes job descriptions and predicts whether a posting is **Genuine** or **Fraudulent**, helping job seekers identify potential scams before applying.
 
-An AI-powered web application that detects fraudulent job postings using **Machine Learning** and **Natural Language Processing (NLP)**. The application analyzes job descriptions and predicts whether a posting is **Genuine** or **Fraudulent**, helping job seekers identify potential scams before applying.
+---
 
-## 🌐 Live Demo
+# 🌐 Live Demo
 
-**Live Application:**
+**🚀 Try the Application**
+
 https://ai-job-scam-detection-sjappxmxsrjtqvh9amhvcr.streamlit.app/
 
-## 📂 GitHub Repository
+---
+
+# 📂 GitHub Repository
 
 https://github.com/kummaranikhil/AI-Job-Scam-Detection
 
@@ -32,28 +27,30 @@ https://github.com/kummaranikhil/AI-Job-Scam-Detection
 
 # 📖 Project Overview
 
-Online job scams have become increasingly common, with fake recruiters posting misleading job advertisements to collect money or personal information from applicants.
+Online recruitment scams have become increasingly common. Fraudulent recruiters often post fake job advertisements to steal money or personal information from applicants.
 
-This project uses Machine Learning and Natural Language Processing to analyze job descriptions and classify them as either:
+This project leverages **Machine Learning** and **Natural Language Processing (NLP)** to automatically analyze job descriptions and classify them as either:
 
 * ✅ Genuine Job Posting
 * 🚨 Fraudulent Job Posting
 
-The application provides prediction probabilities, confidence scores, visual analytics, and suspicious keyword detection through an interactive Streamlit dashboard.
+The application also provides prediction confidence, interactive visualizations, and suspicious keyword analysis through a modern Streamlit dashboard.
 
 ---
 
 # ✨ Features
 
-* 🤖 AI-powered job scam detection
-* 🧠 Natural Language Processing (NLP)
-* 📄 Supports PDF, DOCX, and TXT file uploads
-* 📝 Manual job description input
-* 📊 Interactive Plotly visualizations
-* 📈 Prediction confidence gauge
-* 🚨 Risk assessment based on suspicious keywords
-* 🔍 Explainable AI indicators
-* 🌐 Fully deployed on Streamlit Community Cloud
+* 🤖 AI-powered Job Scam Detection
+* 🧠 NLP-based Text Processing
+* 📄 Upload PDF, DOCX, and TXT files
+* ✍️ Manual Job Description Input
+* 📋 Load Sample Fake Job
+* 📊 Interactive Plotly Charts
+* 🎯 Prediction Confidence Gauge
+* 🚨 Risk Assessment
+* 🔍 Suspicious Keyword Detection
+* 📈 Probability Visualization
+* 🌐 Live Web Application using Streamlit
 
 ---
 
@@ -69,12 +66,12 @@ The application provides prediction probabilities, confidence scores, visual ana
 * Logistic Regression
 * TF-IDF Vectorization
 
-### Data Processing
+### Data Analysis
 
 * Pandas
 * NumPy
 
-### Visualization
+### Data Visualization
 
 * Plotly
 * Matplotlib
@@ -93,7 +90,7 @@ The application provides prediction probabilities, confidence scores, visual ana
 
 # 🧠 Machine Learning Workflow
 
-```
+```text
 Job Description
         │
         ▼
@@ -109,14 +106,39 @@ Logistic Regression Model
 Prediction
         │
         ▼
-Probability + Confidence + Risk Analysis
+Confidence Score
+        │
+        ▼
+Risk Analysis
+        │
+        ▼
+Interactive Dashboard
 ```
+
+---
+
+# 📊 Dataset
+
+**Source:** Kaggle
+
+**Dataset:** Fake Job Postings Dataset
+
+The dataset contains thousands of real and fraudulent job advertisements with information such as:
+
+* Job Title
+* Company Profile
+* Job Description
+* Requirements
+* Benefits
+* Employment Type
+* Industry
+* Fraudulent Label
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 AI-Job-Scam-Detection/
 │
 ├── app.py
@@ -132,6 +154,12 @@ AI-Job-Scam-Detection/
 │   ├── tfidf_vectorizer.pkl
 │   └── feature_columns.pkl
 │
+├── screenshots/
+│   ├── homepage.png
+│   ├── fake_prediction.png
+│   ├── genuine_prediction.png
+│   └── analytics.png
+│
 ├── src/
 │   ├── predict.py
 │   ├── preprocessing.py
@@ -144,22 +172,43 @@ AI-Job-Scam-Detection/
 
 ---
 
-# 📊 Dataset
+# 📸 Application Screenshots
 
-**Source:** Kaggle
+## 🏠 Home Page
 
-**Dataset:** Fake Job Postings Dataset
+Users can upload job descriptions, paste text manually, or load a sample job posting.
 
-The dataset contains real and fraudulent job advertisements with textual information such as:
+![Home Page](screenshots/homepage.png)
 
-* Job Title
-* Company Profile
-* Job Description
-* Requirements
-* Benefits
-* Employment Type
-* Industry
-* Fraudulent Label
+---
+
+## 🚨 Fraudulent Job Detection
+
+The AI predicts fraudulent job postings and displays confidence, risk level, and suspicious indicators.
+
+![Fake Job Prediction](screenshots/fake_prediction.png)
+
+---
+
+## ✅ Genuine Job Detection
+
+The model correctly identifies legitimate job postings and provides prediction confidence.
+
+![Genuine Job Prediction](screenshots/genuine_prediction.png)
+
+---
+
+## 📊 Analytics Dashboard
+
+Interactive visualizations generated using Plotly.
+
+Includes:
+
+* Prediction Probability Bar Chart
+* Probability Distribution Pie Chart
+* Model Confidence Gauge
+
+![Analytics Dashboard](screenshots/analytics.png)
 
 ---
 
@@ -171,7 +220,7 @@ Clone the repository
 git clone https://github.com/kummaranikhil/AI-Job-Scam-Detection.git
 ```
 
-Move into the project folder
+Move into the project directory
 
 ```bash
 cd AI-Job-Scam-Detection
@@ -191,61 +240,43 @@ streamlit run app.py
 
 ---
 
-# 📸 Screenshots
+# 💡 Future Improvements
 
-### 🏠 Home Page
-
-> *(Add a screenshot here)*
-
-### 🚨 Fake Job Prediction
-
-> *(Add a screenshot here)*
-
-### 📊 Analytics Dashboard
-
-> *(Add a screenshot here)*
-
-### 📈 Confidence Visualization
-
-> *(Add a screenshot here)*
+* 🤖 BERT / DistilBERT based classification
+* 🧠 Explainable AI using SHAP
+* 🌐 Company Website Verification
+* 📧 Email Domain Validation
+* 🔗 URL Reputation Analysis
+* 🌙 Dark Mode
+* 👤 User Authentication
+* 📊 Admin Analytics Dashboard
+* 🔌 REST API Integration
+* ☁️ Docker & Cloud Deployment
 
 ---
 
-# 🔮 Future Improvements
-
-* Deep Learning (BERT / DistilBERT)
-* Explainable AI using SHAP
-* Company website verification
-* Email domain validation
-* URL reputation analysis
-* Dark Mode
-* User authentication
-* Admin dashboard with analytics
-* REST API integration
-
----
-
-# 👨‍💻 Developer
+# 👨‍💻 About the Developer
 
 **Kummara Nikhil**
 
-B.Tech – Computer Science Engineering (AI & ML)
+🎓 B.Tech – Computer Science & Engineering (AI & ML)
 
-Aspiring AI Engineer | Machine Learning | Data Science | NLP
+💡 Aspiring AI Engineer | Machine Learning | Data Science | NLP Enthusiast
 
-GitHub:
+**GitHub**
+
 https://github.com/kummaranikhil
 
 ---
 
-# ⭐ If you found this project useful
+# ⭐ Support
 
-Please consider giving this repository a ⭐ on GitHub.
+If you found this project helpful, please consider giving it a **⭐ Star** on GitHub.
 
-It helps support the project and encourages future development.
+Your support motivates future improvements and helps others discover the project.
 
 ---
 
 # 📜 License
 
-This project is developed for educational and portfolio purposes.
+This project is developed for **educational, research, and portfolio purposes**.
