@@ -1,32 +1,46 @@
-import streamlit as st
-from pathlib import Path
+"""
+AI Powered Job Scam Detection Platform
+Developer: Kummara Nikhil
+"""
 
+import os
+import streamlit as st
+
+# Backend Modules
 from src.predict import predict_job
 from src.explain import explain_prediction
 from src.file_handler import extract_text
-from src.charts import probability_chart, pie_chart, confidence_gauge
 from src.report_generator import generate_report
 
-# ==========================================================
-# PAGE CONFIGURATION
-# ==========================================================
+# Charts
+from src.charts import (
+    probability_chart,
+    pie_chart,
+    confidence_gauge
+)
+
+# Configuration
+from config import CSS_FILE
+
+
+# ======================================================
+# PAGE CONFIGURATION (MUST BE FIRST)
+# ======================================================
 
 st.set_page_config(
-    page_title="AI Job Scam Detection Platform",
+    page_title="AI Job Scam Detection",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ==========================================================
-# LOAD CUSTOM CSS
-# ==========================================================
+# ======================================================
+# LOAD CSS
+# ======================================================
 
 def load_css():
-    css_path = Path("assets/style.css")
-
-    if css_path.exists():
-        with open(css_path, "r", encoding="utf-8") as f:
+    if os.path.exists(CSS_FILE):
+        with open(CSS_FILE, "r", encoding="utf-8") as f:
             st.markdown(
                 f"<style>{f.read()}</style>",
                 unsafe_allow_html=True
@@ -34,131 +48,120 @@ def load_css():
 
 load_css()
 
-# ==========================================================
+# ======================================================
 # SESSION STATE
-# ==========================================================
+# ======================================================
 
 if "sample" not in st.session_state:
     st.session_state.sample = ""
 
-# ==========================================================
+# ======================================================
 # SIDEBAR
-# ==========================================================
+# ======================================================
 
 with st.sidebar:
 
-    st.title("🛡️ AI Job Scam Detector")
+    st.title("🛡 AI Job Scam Detector")
 
     st.markdown("---")
 
     st.subheader("📌 About")
 
-    st.info("""
-This AI application detects fraudulent job postings using
+    st.write(
+        """
+This application uses **Machine Learning**
+and **Natural Language Processing (NLP)**
+to classify job advertisements as:
 
-• Machine Learning
+✅ Genuine
 
-• Natural Language Processing
+❌ Fake
+"""
+    )
 
-• Explainable AI
+    st.markdown("---")
 
-• TF-IDF Vectorization
+    st.subheader("⚙ Technologies")
+
+    st.markdown("""
+- 🐍 Python
+- 🤖 Machine Learning
+- 🧠 NLP
+- 📊 Scikit-Learn
+- 🌐 Streamlit
+- 📈 Plotly
 """)
 
     st.markdown("---")
 
-    st.subheader("🛠 Technologies")
+    st.subheader("🧠 AI Model")
 
-    st.success("""
-✅ Python
-
-✅ Streamlit
-
-✅ Scikit-Learn
-
-✅ Pandas
-
-✅ TF-IDF
-
-✅ Plotly
-
-✅ ReportLab
-""")
+    st.success("Logistic Regression")
 
     st.markdown("---")
 
     st.subheader("👨‍💻 Developer")
 
-    st.success("""
-Kummara Nikhil
+    st.info("""
+**Kummara Nikhil**
 
 B.Tech CSE (AI & ML)
+
+AI • ML • Data Science
 """)
 
-    st.markdown("---")
-
-    st.caption("Version 2.0")
-
-# ==========================================================
+# ======================================================
 # HEADER
-# ==========================================================
+# ======================================================
+
+st.title("🛡 AI Powered Job Scam Detection Platform")
 
 st.markdown("""
-<div class='main-title'>
-🛡️ AI Job Scam Detection Platform
-</div>
-""", unsafe_allow_html=True)
+Analyze any job posting using Artificial Intelligence.
 
-st.markdown("""
-<div class='subtitle'>
-Detect Fraudulent Job Postings using Machine Learning, NLP & Explainable AI
-</div>
-""", unsafe_allow_html=True)
+The system predicts whether a job advertisement is **Genuine** or **Fake**
+using Machine Learning and Natural Language Processing.
 
-# ==========================================================
-# FEATURE CARDS
-# ==========================================================
-
-card1, card2, card3 = st.columns(3)
-
-with card1:
-    st.info("""
-### 🤖 AI Engine
-
-✔ TF-IDF
-
-✔ Logistic Regression
-
-✔ Explainable AI
-""")
-
-with card2:
-    st.info("""
-### 📂 Supported Files
-
-✔ PDF
-
-✔ DOCX
-
-✔ TXT
-""")
-
-with card3:
-    st.info("""
-### 📊 Features
-
-✔ Charts
-
-✔ PDF Report
-
-✔ Risk Analysis
+Upload a document or paste the job description below.
 """)
 
 st.markdown("---")
 
-# ==========================================================
-# SAMPLE BUTTON
-# ==========================================================
+# ======================================================
+# DASHBOARD CARDS
+# ======================================================
+
+c1, c2, c3, c4 = st.columns(4)
+
+with c1:
+    st.metric(
+        label="🤖 Model",
+        value="Logistic"
+    )
+
+with c2:
+    st.metric(
+        label="🧠 NLP",
+        value="TF-IDF"
+    )
+
+with c3:
+    st.metric(
+        label="📂 Formats",
+        value="PDF/DOCX/TXT"
+    )
+
+with c4:
+    st.metric(
+        label="⚡ Status",
+        value="Ready"
+    )
+
+st.markdown("---")
+
+# ======================================================
+# SAMPLE JOB
+# ======================================================
 
 if st.button("📋 Load Sample Fake Job"):
 
@@ -171,119 +174,87 @@ Earn ₹50,000 Weekly
 
 No Experience Required
 
-WhatsApp HR Immediately
+WhatsApp HR immediately
 
 Limited Seats
 
 Apply Now
 """
 
-# ==========================================================
-# MAIN LAYOUT
-# ==========================================================
+# ======================================================
+# INPUT SECTION
+# ======================================================
 
-left, right = st.columns([2,1])
+left, right = st.columns([1,1])
 
 with left:
 
-    st.subheader("📄 Job Description")
-
     uploaded_file = st.file_uploader(
-        "Upload PDF, DOCX or TXT",
+        "📂 Upload Job Description",
         type=["pdf", "docx", "txt"]
-    )
-
-    job_text = st.text_area(
-        "Paste Job Description",
-        value=st.session_state.sample,
-        height=350
-    )
-
-    if uploaded_file is not None:
-
-        extracted_text = extract_text(uploaded_file)
-
-        if extracted_text:
-
-            job_text = extracted_text
-
-            st.success("✅ File uploaded successfully.")
-
-            with st.expander("View Extracted Text"):
-
-                st.write(extracted_text)
-
-        else:
-
-            st.error("Unable to read uploaded file.")
-
-    analyze = st.button(
-        "🔍 Analyze Job Posting",
-        use_container_width=True
     )
 
 with right:
 
-    st.subheader("ℹ️ Instructions")
+    job_text = st.text_area(
+        "📄 Paste Job Description",
+        value=st.session_state.sample,
+        height=320
+    )
 
-    st.info("""
-1. Upload a PDF, DOCX or TXT file
+# ======================================================
+# READ FILE
+# ======================================================
 
-OR
+if uploaded_file is not None:
 
-2. Paste the job description
+    extracted_text = extract_text(uploaded_file)
 
-3. Click Analyze
+    if extracted_text:
 
-The AI will predict whether the job posting is Genuine or Fake.
-""")
+        job_text = extracted_text
 
-    st.warning("""
-⚠ Never share personal information with unknown recruiters.
+        st.success("✅ File uploaded successfully!")
 
-Always verify the company before applying.
-""")
+        with st.expander("View Extracted Text"):
 
-# ==========================================================
-# PREDICTION STARTS HERE
-# ==========================================================
-
-if analyze:
-
-    if job_text.strip() == "":
-
-        st.warning("Please upload or enter a job description.")
+            st.write(extracted_text)
 
     else:
 
-        with st.spinner("Analyzing Job Posting..."):
+        st.error("Unable to extract text from this file.")
 
-            try:
+st.markdown("---")
+# ======================================================
+# ANALYZE BUTTON
+# ======================================================
 
-                result = predict_job(job_text)
+if st.button("🔍 Analyze Job Posting", use_container_width=True):
 
-                reasons = explain_prediction(job_text)
+    if job_text.strip() == "":
 
-            except Exception as e:
+        st.warning("⚠ Please enter or upload a job description.")
 
-                st.error("❌ Something went wrong while analyzing the job posting.")
+    else:
 
-                st.exception(e)
+        with st.spinner("🤖 AI is analyzing the job posting..."):
 
-                st.stop()
-            prediction = result["prediction"]
+            result = predict_job(job_text)
 
-            fake_probability = result["fake_probability"]
+            reasons = explain_prediction(job_text)
 
-            real_probability = result["real_probability"]
+        prediction = result["prediction"]
+        fake_probability = result["fake_probability"]
+        real_probability = result["real_probability"]
 
-            confidence = max(
-                fake_probability,
-                real_probability
-            )
-        # ==========================================================
+        confidence = max(
+            fake_probability,
+            real_probability
+        )
+
+        # ===============================================
         # PREDICTION RESULT
-        # ==========================================================
+        # ===============================================
 
         st.markdown("---")
 
@@ -301,65 +272,74 @@ if analyze:
 
             st.success(prediction_text)
 
-        # ==========================================================
-        # PROBABILITY
-        # ==========================================================
+        # ===============================================
+        # METRICS
+        # ===============================================
 
-        st.markdown("---")
+        m1, m2, m3 = st.columns(3)
 
-        st.header("📈 Prediction Probability")
-
-        col1, col2 = st.columns(2)
-
-        with col1:
+        with m1:
 
             st.metric(
                 "🟢 Genuine",
                 f"{real_probability:.2f}%"
             )
 
-        with col2:
+        with m2:
 
             st.metric(
                 "🔴 Fake",
                 f"{fake_probability:.2f}%"
             )
 
+        with m3:
+
+            st.metric(
+                "🎯 Confidence",
+                f"{confidence:.2f}%"
+            )
+
         st.progress(confidence / 100)
 
-        st.success(
-            f"Model Confidence : {confidence:.2f}%"
-        )
-
-        # ==========================================================
-        # VISUAL ANALYTICS
-        # ==========================================================
+        # ===============================================
+        # CHARTS
+        # ===============================================
 
         st.markdown("---")
 
-        st.header("📊 AI Visual Analytics")
+        st.header("📈 AI Prediction Analytics")
 
         chart1, chart2 = st.columns(2)
 
         with chart1:
 
             st.plotly_chart(
+
                 probability_chart(
                     fake_probability,
                     real_probability
                 ),
+
                 use_container_width=True
+
             )
 
         with chart2:
 
             st.plotly_chart(
+
                 pie_chart(
                     fake_probability,
                     real_probability
                 ),
+
                 use_container_width=True
+
             )
+
+        st.markdown("---")
+
+        st.subheader("🎯 Model Confidence")
 
         st.plotly_chart(
 
@@ -369,72 +349,87 @@ if analyze:
 
         )
 
-        # ==========================================================
+        # ===============================================
         # AI EXPLANATION
-        # ==========================================================
+        # ===============================================
 
         st.markdown("---")
 
-        st.header("🔍 Explainable AI")
+        st.header("🧠 AI Explanation")
 
         if len(reasons) == 0:
 
             st.success(
-                "✅ No suspicious keywords detected."
+                "No suspicious keywords were detected."
             )
 
         else:
 
             st.warning(
-                "The following suspicious indicators were found:"
+                "The following suspicious indicators were detected:"
             )
 
-            for reason in reasons:
+            for i, reason in enumerate(reasons, start=1):
 
-                st.write("•", reason)
+                st.write(
+                    f"**{i}.** {reason}"
+                )
 
-        # ==========================================================
-        # RISK ANALYSIS
-        # ==========================================================
+        # ===============================================
+        # RISK LEVEL
+        # ===============================================
 
         st.markdown("---")
 
-        st.header("⚠ Risk Analysis")
+        st.header("⚠ Risk Assessment")
 
-        risk = len(reasons)
+        risk_score = len(reasons)
 
-        if risk >= 5:
+        if risk_score >= 5:
 
             risk_level = "HIGH"
 
-            st.error("🔴 HIGH RISK")
+            st.error(
+                "🔴 HIGH RISK"
+            )
 
-        elif risk >= 3:
+        elif risk_score >= 3:
 
             risk_level = "MEDIUM"
 
-            st.warning("🟠 MEDIUM RISK")
+            st.warning(
+                "🟠 MEDIUM RISK"
+            )
 
-        elif risk >= 1:
+        elif risk_score >= 1:
 
             risk_level = "LOW"
 
-            st.info("🟡 LOW RISK")
+            st.info(
+                "🟡 LOW RISK"
+            )
 
         else:
 
             risk_level = "SAFE"
 
-            st.success("🟢 SAFE")
+            st.success(
+                "🟢 SAFE"
+            )
 
         st.markdown("---")
-        # ==========================================================
-        # PDF REPORT GENERATION
-        # ==========================================================
+        # ===============================================
+        # PDF REPORT
+        # ===============================================
 
-        st.header("📄 Analysis Report")
+        st.markdown("---")
 
-        if st.button("📥 Generate PDF Report"):
+        st.header("📄 Generate AI Report")
+
+        if st.button(
+            "📥 Generate PDF Report",
+            use_container_width=True
+        ):
 
             report_path = generate_report(
                 job_text=job_text,
@@ -450,86 +445,89 @@ if analyze:
 
                 st.download_button(
                     label="⬇ Download PDF Report",
-                    data=pdf_file,
+                    data=pdf_file.read(),
                     file_name=report_path.name,
-                    mime="application/pdf"
+                    mime="application/pdf",
+                    use_container_width=True
                 )
 
-        # ==========================================================
-        # ANALYSIS SUMMARY
-        # ==========================================================
+        # ===============================================
+        # JOB SAFETY TIPS
+        # ===============================================
 
         st.markdown("---")
 
-        st.header("📋 Analysis Summary")
+        st.header("💡 Tips to Identify Fake Job Posts")
 
-        summary_col1, summary_col2 = st.columns(2)
+        tips = [
+            "Never pay registration or interview fees.",
+            "Verify the company through its official website.",
+            "Avoid communication only through WhatsApp or Telegram.",
+            "Be cautious of unrealistically high salaries.",
+            "Check the recruiter’s official email address.",
+            "Research company reviews on LinkedIn or Glassdoor.",
+            "Avoid offers demanding immediate joining without interviews.",
+            "Read the complete job description before applying."
+        ]
 
-        with summary_col1:
+        for tip in tips:
 
-            st.metric(
-                "Prediction",
-                "Fake Job" if prediction == 1 else "Genuine Job"
-            )
+            st.info(f"✔ {tip}")
 
-            st.metric(
-                "Confidence",
-                f"{confidence:.2f}%"
-            )
-
-        with summary_col2:
-
-            st.metric(
-                "Risk Level",
-                risk_level
-            )
-
-            st.metric(
-                "Suspicious Indicators",
-                len(reasons)
-            )
-
-        # ==========================================================
-        # JOB DESCRIPTION PREVIEW
-        # ==========================================================
+        # ===============================================
+        # ANALYZE AGAIN
+        # ===============================================
 
         st.markdown("---")
 
-        st.header("📄 Submitted Job Description")
+        if st.button(
+            "🔄 Analyze Another Job",
+            use_container_width=True
+        ):
 
-        with st.expander("View Job Description"):
+            st.session_state.sample = ""
 
-            st.write(job_text)
+            st.rerun()
 
-# ==========================================================
+# ======================================================
 # FOOTER
-# ==========================================================
+# ======================================================
+
+st.markdown("---")
+
+left, center, right = st.columns(3)
+
+with left:
+
+    st.caption("👨‍💻 Developed by")
+
+    st.write("**Kummara Nikhil**")
+
+with center:
+
+    st.caption("🧠 Technologies")
+
+    st.write("Python • NLP • ML • Streamlit")
+
+with right:
+
+    st.caption("🎓 Project")
+
+    st.write("AI Powered Job Scam Detection")
 
 st.markdown("---")
 
 st.markdown(
     """
-    <div style='text-align:center; padding:20px;'>
+<div style="text-align:center;padding:15px;">
 
-    <h3>🛡️ AI Job Scam Detection Platform</h3>
+### 🛡 AI Powered Job Scam Detection Platform
 
-    <p>
-    Built using <b>Python</b>,
-    <b>Machine Learning</b>,
-    <b>Natural Language Processing</b>,
-    <b>Streamlit</b>,
-    <b>Plotly</b>,
-    and <b>Scikit-Learn</b>.
-    </p>
+Built using **Machine Learning**, **Natural Language Processing**, and **Streamlit**
 
-    <hr>
+⭐ Thank you for using this application.
 
-    <p>
-    👨‍💻 Developed by <b>Kummara Nikhil</b><br>
-    B.Tech CSE (AI & ML)
-    </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+</div>
+""",
+unsafe_allow_html=True
 )
