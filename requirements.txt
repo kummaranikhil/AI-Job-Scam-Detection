@@ -7,5 +7,6 @@ matplotlib
 plotly
 wordcloud
 PyPDF2
+pdfplumber
 python-docx
 reportlab
